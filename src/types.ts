@@ -63,7 +63,7 @@ export interface InvoicePosition {
     quantity: number
     quantity_unit?: string
     tax?: number | string
-    total_price_gross?: number
+    total_price_gross: number
     code?: string
     _destroy?: true
 }
@@ -257,12 +257,12 @@ export interface CreateInvoicePayload {
     exchange_currency?: string;
     lang?: string
     payment_type?: PaymentType
-    issue_date: string;
+    issue_date?: string;
     sell_date?: string;
     from_invoice_id?: number;
     income?: "0"
 
-    buyer_name: string
+    buyer_name?: string
     buyer_tax_no?: string
     buyer_email?: string
     buyer_phone?: string
@@ -295,11 +295,11 @@ export interface CreateInvoicePayload {
     correction_reason?: string;
     exclude_from_stock_level?: boolean;
     additional_params?: string;
-    
+
     sale_date?: string
     payment_to?: string
     payment_to_kind?: string | number
-    positions: InvoicePosition[]
+    positions?: InvoicePosition[]
 
     description?: string
 
@@ -407,6 +407,23 @@ export type InvoiceStatusResponse = {
 }
 
 
+export interface CreateRecurringInvoicePayload {
+    name: string
+    invoice_id: number
+    start_date: string
+    every: string
+    issue_working_day_only: boolean
+    send_email: boolean
+    buyer_email: string
+    end_date: string
+    comment?: string;
+    currency?: string
+}
+
+export interface UpdateRecurringInvoicePayload extends Partial<CreateRecurringInvoicePayload> {
+    next_invoice_date?: string;
+}
+
 // ─── Products ─────────────────────────────────────────────────────────────────
 
 export interface Product {
@@ -425,6 +442,54 @@ export interface Product {
     warehouse_id?: number
     created_at: string
     updated_at: string
+}
+
+export interface RecurringInvoice {
+    id: number
+    name: string
+    every: string
+    at: null | string
+    comment: null | string
+    creator_id: null | number
+    updater_id: null | number
+    invoice_id: number
+    created_at: string
+    updated_at: string
+    start_date: string
+    end_date: null | string
+    last_invoice_date: null | string
+    next_invoice_date: string
+    email_notification_enabled: boolean
+    counter: number
+    deleted: boolean
+    invoice_pattern: null | string
+    invoice_pattern_enabled: boolean
+    send_email: boolean
+    last_invoice_at: null | string
+    income: boolean
+    issue_working_day_only: boolean
+    convert_to_vat_invoice: boolean
+    create_as_paid: boolean
+    only_year_month: boolean
+    end_of_month_sell_date: boolean
+    department_id: null | number
+    client_id: null | number
+    product_id: null | number
+    price_gross: null | number
+    currency: null | string
+    quantity: null | number
+    buyer_email: string
+    payment_to: null | string | number
+    sending_time: number
+    state: string
+    issue_on_specific_day: null | string
+    from_recurring_id: null | number
+    custom_sell_date: null | string
+    sending_datetime: string
+    recurring_finished_notification: boolean
+    gtu_codes: Array<string>
+    procedure_designations: Array<string>
+    split_payment: null | string
 }
 
 export interface CreateProductPayload {

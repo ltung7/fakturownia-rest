@@ -1,5 +1,5 @@
 import type { HttpClient } from '../request.js';
-import type { Invoice, CreateInvoicePayload, UpdateInvoicePayload, ListParams, InvoiceStatus, InvoiceStatusResponse } from '../types.js';
+import type { Invoice, CreateInvoicePayload, UpdateInvoicePayload, ListParams, InvoiceStatus, InvoiceStatusResponse, CreateRecurringInvoicePayload, UpdateRecurringInvoicePayload } from '../types.js';
 export declare class InvoicesModule {
     private readonly http;
     constructor(http: HttpClient);
@@ -9,7 +9,11 @@ export declare class InvoicesModule {
     update(id: number, payload: UpdateInvoicePayload): Promise<Invoice>;
     delete(id: number): Promise<void>;
     cancel(id: number, reason: string): Promise<InvoiceStatusResponse>;
-    uploadAttachment(id: number, buffer: Buffer, fileName: string, mimeType?: string): Promise<string>;
+    createRecurring(payload: CreateRecurringInvoicePayload): Promise<Invoice>;
+    updateRecurring(id: number, payload: UpdateRecurringInvoicePayload): Promise<Invoice>;
+    uploadAttachment(id: number, buffer: Buffer, fileName: string, mimeType?: string): Promise<{
+        message: string;
+    }>;
     setStatus(id: number, status: InvoiceStatus): Promise<InvoiceStatusResponse>;
     /** Send the invoice to the buyer via email */
     sendByEmail(id: number, emailTo?: string): Promise<void>;

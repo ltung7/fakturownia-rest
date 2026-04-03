@@ -4,6 +4,7 @@ import { ProductsModule } from './modules/products.js'
 import { ClientsModule } from './modules/clients.js'
 import { PaymentsModule } from './modules/payments.js'
 import { CategoriesModule } from './modules/categories.js'
+import { RecurringsModule } from './modules/recurrings.js'
 import type { FakturowniaConfig } from './types.js'
 
 export class Fakturownia {
@@ -12,6 +13,7 @@ export class Fakturownia {
     readonly clients: ClientsModule
     readonly payments: PaymentsModule
     readonly categories: CategoriesModule
+    readonly recurrings: RecurringsModule
 
     /**
      * @param token   - API token from Fakturownia → Settings → Integration
@@ -32,6 +34,7 @@ export class Fakturownia {
         this.clients = new ClientsModule(http)
         this.payments = new PaymentsModule(http)
         this.categories = new CategoriesModule(http)
+        this.recurrings = new RecurringsModule(http)
     }
 }
 

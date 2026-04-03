@@ -47,6 +47,9 @@ export class HttpClient {
 
     async get<T>(path: string, params?: Record<string, unknown>): Promise<T> {
         const res = await this.client.get<T>(`/${path}.json`, { params })
+        if (typeof res.data === 'string') {
+            console.log(res.config.baseURL! + res.config.url);
+        }
         return res.data
     }
 

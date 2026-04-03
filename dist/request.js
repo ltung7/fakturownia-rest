@@ -32,6 +32,9 @@ export class HttpClient {
     }
     async get(path, params) {
         const res = await this.client.get(`/${path}.json`, { params });
+        if (typeof res.data === 'string') {
+            console.log(res.config.baseURL + res.config.url);
+        }
         return res.data;
     }
     async download(path, params) {

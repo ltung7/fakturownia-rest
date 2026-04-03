@@ -26,6 +26,12 @@ export class InvoicesModule {
             cancel_reason: reason
         });
     }
+    createRecurring(payload) {
+        return this.http.post('recurrings', { recurring_invoice: payload });
+    }
+    updateRecurring(id, payload) {
+        return this.http.put(`recurrings/${id}`, { recurring_invoice: payload });
+    }
     async uploadAttachment(id, buffer, fileName, mimeType = 'application/pdf') {
         const awsData = await this.http.get(`invoices/${id}/get_new_attachment_credentials`);
         const formData = new FormData();

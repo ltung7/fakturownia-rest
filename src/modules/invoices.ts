@@ -10,6 +10,8 @@ import type {
     ListParams,
     InvoiceStatus,
     InvoiceStatusResponse,
+    CreateRecurringInvoicePayload,
+    UpdateRecurringInvoicePayload,
 } from '../types.js'
 
 export class InvoicesModule {
@@ -41,6 +43,15 @@ export class InvoicesModule {
             cancel_reason: reason
         })
     }
+
+    createRecurring(payload: CreateRecurringInvoicePayload): Promise<Invoice> {
+        return this.http.post<Invoice>('recurrings', { recurring_invoice: payload })
+    }
+
+    updateRecurring(id: number, payload: UpdateRecurringInvoicePayload): Promise<Invoice> {
+        return this.http.put<Invoice>(`recurrings/${id}`, { recurring_invoice: payload })
+    }
+
 
     async uploadAttachment(id: number, buffer: Buffer, fileName: string, mimeType: string = 'application/pdf'): Promise<{ message: string }> {
         interface AwsData {

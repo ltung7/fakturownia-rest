@@ -19,7 +19,9 @@
         "build": "tsc",
         "dev": "tsc --watch",
         "prepare": "npm run build",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build",
+        "xc": "npm run build && node sc/script.ts", 
+        "sc": "node sc/script.ts" 
     },
     "keywords": [
         "fakturownia",
